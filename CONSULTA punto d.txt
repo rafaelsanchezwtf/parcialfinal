@@ -1,0 +1,1 @@
+SELECT suma/contador FROM (SELECT  SUM(calificacion) as suma, COUNT(*) as contador FROM calificacion WHERE parque IN (SELECT codigo FROM parque WHERE nivel = 'alto')) aux

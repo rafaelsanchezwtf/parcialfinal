@@ -180,10 +180,22 @@ class db
 				case "all": 
 					$info=$this->get_data("SELECT * FROM parque;");
 					break;
+
+				case "por_nivel_alto":
+					$nivel=mysqli_real_escape_string($this->cn,$data['nivel']);
+					$info=$this->get_data("SELECT * FROM parque WHERE nivel='$nivel';");
+					break;
 			}
 			break;
 
-
+			case "calificacion":
+			switch($option['lvl2'])
+			{
+				case "all": 
+					$info=$this->get_data("SELECT * FROM calificacion;");
+					break;
+			}
+			break;
 			
 			default: break;
 		}
