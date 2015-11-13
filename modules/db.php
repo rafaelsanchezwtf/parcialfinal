@@ -56,8 +56,12 @@ class db
 	//throw exception to web document
 	private function throw_sql_exception($class)
     {
-		$errno = mysqli_errno($this->cn); $error = mysqli_error($this->cn);
-		$msg = $error."<br /><br /><b>Error number:</b> ".$errno;
+    	$errno = mysqli_errno($this->cn); $error = mysqli_error($this->cn);
+    	if ($errno == 1062){
+			$msg = "clave primaria ya existe en clase " . $class;
+		}else{
+			$msg = $error."<br /><br /><b>Error number:</b> ".$errno;	
+		}	
         throw new Exception($msg);
     }
 	
@@ -86,6 +90,19 @@ class db
 			{
 				case "normal":
 					//
+					break;
+			}
+			break;
+
+			case "parque":
+			switch($options['lvl2'])
+			{
+				case "normal":
+					$codigo = mysqli_real_escape_string($this->cn,$object->get('codigo'));
+					$nombre = mysqli_real_escape_string($this->cn,$object->get('nombre'));
+					$municipio = mysqli_real_escape_string($this->cn,$object->get('municipio'));
+					$nivel = mysqli_real_escape_string($this->cn,$object->get('nivel'));
+					$this->do_operation("INSERT INTO parque (codigo,nombre,municipio,nivel) VALUES ('$codigo', '$nombre','$municipio','$nivel');",$options['lvl1']);
 					break;
 			}
 			break;
