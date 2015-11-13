@@ -106,6 +106,18 @@ class db
 					break;
 			}
 			break;
+
+			case "calificacion":
+			switch($options['lvl2'])
+			{	
+				case "normal":
+					$fecha=mysqli_real_escape_string($this->cn,$object->get('fecha'));
+					$calificacion=mysqli_real_escape_string($this->cn, $object->get('calificacion'));
+					$parque=mysqli_real_escape_string($this->cn,$object->get('parque'));
+					$this->do_operation("INSERT INTO calificacion (id, fecha, calificacion, parque) VALUES (NULL, '$fecha', '$calificacion', '$parque');",$options['lvl1']);
+					break;
+			}
+			break;
 			
 			default: break;
 		}
@@ -170,6 +182,8 @@ class db
 					break;
 			}
 			break;
+
+
 			
 			default: break;
 		}
