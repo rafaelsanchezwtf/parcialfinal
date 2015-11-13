@@ -194,6 +194,10 @@ class db
 				case "all": 
 					$info=$this->get_data("SELECT * FROM calificacion;");
 					break;
+
+				case "prom_calif_alto":
+					$info=$this->get_data("SELECT suma/contador as promedio FROM (SELECT  SUM(calificacion) as suma, COUNT(*) as contador FROM calificacion WHERE parque IN (SELECT codigo FROM parque WHERE nivel = 'alto')) aux;");
+					break;
 			}
 			break;
 			
